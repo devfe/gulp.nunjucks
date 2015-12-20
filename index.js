@@ -1,13 +1,12 @@
-'use strict';
 var _ = require('lodash');
 var gutil = require('gulp-util');
 var through = require('through2');
 var nunjucks = require('nunjucks');
 
-module.exports = function (options, loaders, env ) {
+module.exports = function (context) {
     return through.obj(function (file, enc, cb) {
 
-        var data = _.cloneDeep(options);
+        var data = _.cloneDeep(context);
 
         if (file.isNull()) {
             this.push(file);
@@ -24,11 +23,12 @@ module.exports = function (options, loaders, env ) {
         }
 
         var _this = this;
-        compile.renderString(file.contents.toString(), data, function (err, result) {
+        nunjucks.renderString(file.contents.toString(), data, function (err, result) {
             if (err) {
-              _this.emit('error', new gutil.PluginError('gulp.nunjucks', err));
-              return cb();
+                _this.emit('error', new gutil.PluginError('gulp.nunjucks', err));
+                return cb();
             }
+            
             file.contents = new Buffer(result);
             _this.push(file);
             cb();
@@ -36,4 +36,4 @@ module.exports = function (options, loaders, env ) {
     });
 };
 
-module.exports.nunjucks = nunjucks;
+module.exports.configure = nunjucks.configure;
