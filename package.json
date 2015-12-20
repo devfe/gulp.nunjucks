@@ -1,13 +1,14 @@
 {
   "name": "gulp.nunjucks",
   "version": "0.0.1",
+  "homepage": "https://github.com/devfe/gulp-nunjucks",
+  "author": "keelii <keeliizhou@gmail.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/devfe/gulp-nunjucks.git"
   },
-  "files": [
-    "index.js"
-  ],
+  "main": "index.js",
   "dependencies": {
     "gulp-util": "^3.0.7",
     "lodash": "^3.3.0",
